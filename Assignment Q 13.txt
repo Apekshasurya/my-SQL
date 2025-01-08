@@ -1,0 +1,6 @@
+Q 13
+CREATE DEFINER=`root`@`localhost` TRIGGER `emp_bit_BEFORE_INSERT` BEFORE INSERT ON `emp_bit` FOR EACH ROW BEGIN
+IF NEW.Working_hours < 0 THEN
+        SET NEW.Working_hours = ABS(NEW.Working_hours);
+    end if;
+END

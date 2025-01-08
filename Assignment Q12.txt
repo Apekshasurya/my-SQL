@@ -1,0 +1,23 @@
+Q12
+CREATE DEFINER=`root`@`localhost` PROCEDURE `Emp_EH`(
+    IN p_EmpID INT,
+    IN p_EmpName VARCHAR(100),
+    IN p_EmailAddress VARCHAR(100)
+)
+BEGIN
+    DECLARE EXIT HANDLER FOR SQLEXCEPTION
+    BEGIN
+        -- Handle the error
+        SELECT 'Error occurred' AS ErrorMessage;
+    END;
+
+    -- Insert statement
+    INSERT INTO Emp_EH (EmpID, EmpName, EmailAddress)
+    VALUES (p_EmpID, p_EmpName, p_EmailAddress);
+    
+    SELECT 'Data inserted successfully'as successMessage;
+END
+CALL Emp_EH(1,'Apeksha','apeksha172001@gmail');
+CALL Emp_EH(1,'Yash','yash2001@gmail');
+
+select * from Emp_EH;

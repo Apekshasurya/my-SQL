@@ -1,0 +1,22 @@
+Assignment Q 9 
+
+CREATE PROCEDURE `Get_country_payments`(IN input_year INT, IN input_country VARCHAR(255))
+BEGIN
+    SELECT 
+        YEAR(p.PaymentDate) AS Year,
+        c.Country,
+        CONCAT(FORMAT(SUM(p.amount) / 1000, 0), 'K') AS Total_Amount
+    FROM 
+        Payments p
+    JOIN 
+        Customers c ON p.customerNumber = c.customerNumber
+    WHERE 
+        YEAR(p.paymentDate) = input_year
+        AND c.country = input_country                       
+    GROUP BY 
+        Year, c.country;
+END 
+
+
+
+CALL Get_country_payments(2003, 'France');
